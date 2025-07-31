@@ -3,6 +3,7 @@
 #
 from c7n_kube.query import QueryResourceManager, TypeInfo
 from c7n_kube.provider import resources
+from c7n.filters.offhours import OffHour, OnHour
 
 
 @resources.register("deployment")
@@ -15,3 +16,7 @@ class Deployment(QueryResourceManager):
         delete = "delete_namespaced_deployment"
         enum_spec = ("list_deployment_for_all_namespaces", "items", None)
         plural = "deployments"
+
+
+Deployment.filter_registry.register('offhour', OffHour)
+Deployment.filter_registry.register('onhour', OnHour)
